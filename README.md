@@ -1,4 +1,4 @@
-# OzoneTrend
+# [OzoneTrend](https://doi.org/10.5281/zenodo.10036040)
 This is a repo of scripts for trend analysis of ozone over the city of Tehran.
 
 This package is a set of scripts to:
