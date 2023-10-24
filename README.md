@@ -7,9 +7,9 @@ This package is a set of scripts to:
 
  - estimate the trend of ozone
 
- - analysis the relationship between ozone and its precursors 
+ - analysis of the relationship between ozone and its precursors 
 
  - plot the outputs
 
-Example of outputs can be found in [plots](plots) directory or in
-[__](https:__)
+More information can be found in [Trend analysis of measured surface ozone at the megacity of Tehran for the summertime 2007-2021]().
+   
