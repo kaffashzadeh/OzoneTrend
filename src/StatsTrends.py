@@ -1,5 +1,5 @@
 """
-This program is written for the statistical analysis of ozone trend.
+This program is written for the statistical analysis of ozone trends.
 """
 # imports python standard libraries
 import os
@@ -214,7 +214,7 @@ class TrdAna:
 
     def check_normality(self, data=None, var=None):
         """
-        It checks normality (normal distributed) of the error terms.
+        It checks the normality (normal distribution) of the error terms.
 
         Args:
              data(pd.DataFrame): input data
@@ -231,7 +231,7 @@ class TrdAna:
 
     def check_multicollinearity(self, data=None, var=None):
         """
-        It check to see either predictors are correlated with each other or not.
+        It checks to see whether predictors are correlated with each other or not.
 
         Args:
              data(pd.DataFrame): input data
@@ -291,7 +291,6 @@ class TrdAna:
         model.fit(df_std[predictors], df_std['o3'])
         r2 = model.score(df_std[predictors], df_std['o3'])
         print('intercept = ', model.intercept_, 'coef = ', model.coef_)
-        exit()
         # print('R2: {0}'.format(r2))
         predict = model.predict(df_std[predictors])
         res = pd.DataFrame({'Actual': df_std['o3'], 'Predicted': predict})
@@ -302,7 +301,6 @@ class TrdAna:
         # self.check_multicollinearity(data=df_std, var=var)
         self.check_autocorrelation(data=res, var=var)
         self.check_homoscedasticity(data=res, var=var)
-        exit()
         # Calculate residuals
         res['res'] = res['Residuals'] * self.df['o3'].std() + self.df['o3'].mean()
         res['res'].to_csv('resi.csv')
@@ -312,8 +310,8 @@ class TrdAna:
         It reads the observation data and analyses them.
         """
         sta = 'All stations'
-        #y1 = '2007'
-        #y2 = '2014-07-17'
+        # y1 = '2007'
+        # y2 = '2014-07-17'
         y1 = '2014-07-18'
         y2 = '2021'
         spec = 'LT'
@@ -335,62 +333,12 @@ class TrdAna:
                              dfco, dfs1, dfs2, dfadj_o3], axis=1)
         self.df.columns = ['o3', 'tme', 'tma', 'tmi', 'rh', 'ws',
                            'no', 'no2', 'nox', 'co', 'o3_sh', 'o3_se', 'o3_adj']
-        # contour plot
-        # self.df = self.df[['o3_adj', 'co', 'nox']].resample('M').mean().dropna()
-        # self.df.columns=['Adj_O3 (ppb)', 'CO (ppm)', 'NOx (ppb)']
-        # Method 1
-        # sns.relplot(data=self.df, x='CO (ppm)', y='NOx (ppb)', size='O3 (ppb)',
-        # hue='O3 (ppb)', palette='gray_r')
-        # plt.savefig('relplot.png', bbox_inches='tight')
-        # plt.close()
-        # Method 2
-        # fig, ax = plt.subplots()
-        # offset = 0.25
-        # x = self.df['CO (ppm)']
-        # y = self.df['NOx (ppb)']
-        # z = self.df['Adj_O3 (ppb)']
-        # xmin = 0#x.min() - offset
-        # xmax = 10#x.max() + offset
-        # ymin = 0#y.min() - offset
-        # ymax = 500#y.max() + offset
-        # X, Y = np.mgrid[xmin:xmax:200j, ymin:ymax:200j]
-        # positions = np.vstack([X.ravel(), Y.ravel()])
-        # values = np.vstack([x, y])
-        # kernel = sps.gaussian_kde(values, weights=z)
-        # Z = np.reshape(kernel(positions).T, X.shape)
-        # ax.imshow(np.rot90(Z), cmap=plt.cm.Blues, extent=[xmin, xmax, ymin, ymax], aspect='auto')
-        # sns.scatterplot(data=self.df, x='CO (ppm)', y='NOx (ppb)', size='Adj_O3 (ppb)',
-        #                 hue='Adj_O3 (ppb)', palette='gray_r', size_norm=(30,70))
-        # ax.set_xlim([xmin, xmax])
-        # ax.set_ylim([ymin, ymax])
-        # # ax.legend(loc='upper left', bbox_to_anchor=(1,1))
-        # plt.show()
-        # exit()
-        # plt.savefig('adjo3_nox_co_p1_org.png', bbox_inches='tight')
-        # plt.close()
-        # exit()
-        # Method 3
-        # fig, ax = plt.subplots()
-        # x = self.df['CO (ppm)']
-        # y = self.df['NOx (ppb)']
-        # z = self.df['O3 (ppb)']
-        # levels = [10, 20, 30, 40, 50, 60]
-        # Z = self.df.pivot_table(index='CO (ppm)', columns='NOx (ppb)', values='O3 (ppb)').fillna(0).T.values
-        # print(Z)
-        # X_unique = np.sort(x.unique())
-        # Y_unique = np.sort(y.unique())
-        # X, Y = np.meshgrid(X_unique, Y_unique)
-        # ax.contourf(X, Y, Z)
-        # plt.show()
-
         # Estimate Trend
-        #self.df = self.sel_sum().dropna()
-        #self.estimate_trend(var='co')
-        #exit()
+        # self.df = self.sel_sum().dropna()
+        # self.estimate_trend(var='co')
         # Do regressions
-        self.calc_reg1()
+        # self.calc_reg1()
         self.calc_reg2()
-        # exit()
 
 if __name__ == '__main__':
     TrdAna().run()
